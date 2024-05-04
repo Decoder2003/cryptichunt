@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+<style>
+    h1{
+        font-size: 2em;
+        background: -webkit-linear-gradient(45deg,#0084f6, #d801b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+    }
+</style>
+{% if ns %}
+<h1>TIMES UP, GAME ENDED!</h1>
+{% elif ns == 2 %}
+<h1>TIMES UP, GAME ENDED!</h1>
+{% elif not user.is_active %}
+<h1>YOU ARE DISQUALIFIED</h1>
+{% else %}
+<h1>PLEASE VERIFY YOUR EMAIL ID</h1>
+{% endif %}
+
+{% endblock content %}
+
+

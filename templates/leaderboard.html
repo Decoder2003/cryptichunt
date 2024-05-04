@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="leaderboard">
+	<header class="lead-header">
+	  <h1>Leader Board</h1>
+	  <img src="https://cdn.discordapp.com/attachments/861516322202451988/877140372470525952/hacker_adobespark.png" alt="">
+	  <nav>
+		<form class="search-container" action="">
+			<input id="search-box" type="text" class="search-box" placeholder="Search" name=""  onkeyup="searchFun()"/>
+			<label for="search-box">
+				<span class="glyphicon glyphicon-search search-icon">
+					<i class="fas fa-search"></i>
+				</span>
+			</label>
+			<input type="submit" id="search-submit" />
+		  </form>
+	  </nav>
+	</header>
+	<table id="myTable">
+	  <thead style="font-family: 'roadRage';">
+		<tr style="letter-spacing: 5px;">
+		  <th class="rank">rank</th>
+		  <th class="nick">username</th>
+		  <th class="sp">LEVEL</th>
+		  <th class="kd">SCORE</th>
+		</tr>
+	  </thead>
+	  
+	  <tbody style="overflow: scroll;">
+		
+		{% for cuser in all_users %}
+		<tr class="row">
+		<td class="rank">{{ forloop.counter }}</td>
+		{% if user.is_authenticated and user == cuser %}
+		<td class="nick">{{ cuser.user_name }} (YOU) </td>
+			{% else %}
+		<td class="nick">{{ cuser.user_name }}</td>
+		{% endif %}
+		<td class="sp">{{ cuser.current_level }}</td>
+		<td class="kd">{{ cuser.score }}</td>
+		</tr>
+		{% endfor %}
+	  </tbody>
+	</table>
+  </div>
+  <script>
+	  document.addEventListener("touchstart", function () {}, true);
+  </script>
+    <script>
+        const searchFun = () =>{
+          let filter = document.getElementById('search-box').value.toUpperCase();
+          let myTable = document.getElementById('myTable');
+          let tr = myTable.getElementsByClassName('row');
+          for (var i=0; i<tr.length; i++){
+            let td = tr[i].getElementsByClassName('nick')[0];
+            if (td){
+              let textvalue = td.textContent || td.innerHTML;
+              if (textvalue.toUpperCase().indexOf(filter) > -1){
+                tr[i].style.display = "";
+              }
+              else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+      </script>
+{% endblock content %}

@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cryptic Hunt : INNOVATE'24</title>
+	<link rel="icon" href="{% static 'images/icon.png' %}">
+	<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+	<script src="{% static 'js/amazing.js' %}" defer></script>
+	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
+	<script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+	<script src="https://kit.fontawesome.com/a605615ef9.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Convergence&family=Lato:wght@300;400;700;900&family=Mukta:wght@300;400;600;700;800&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<section id="home">
+
+		<!-- particles.js container -->
+		<div id="particles-js"></div>
+		<script src="{% static 'js/app.js' %}"></script>
+		<script src="{% static 'js/particles.js' %}"></script>
+
+		<div class="imgback"></div>
+		<header>
+			<div class="nav-bar">
+				<a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" class="imagineLogo" alt="ImAgine.py"
+						style="width:300px; position:absolute; top: 20px; left: 0;margin-left: 30px;"></a>
+				<ul class="nav-list">
+					<li><a class="navbarlist" href="{% url 'home' %}" >Home</a></li>
+					<li><a class="navbarlist" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+					<li><a class="navbarlist" href="{% url 'rules' %}">Rules</a></li>
+					<li><a class="navbarlist" href="{% url 'questions' %}">Play</a></li>
+
+					{% if user.is_authenticated %}
+
+					<li>
+						<div class="action">
+							<div class="profile" onclick="menuToggle();">
+								<p class="subbtn">Hello {{user.first_name}} </p>
+							</div>
+							<div class="menu">
+								<h3>{{user.first_name}} {{user.last_name}}<br> <span>{{user.user_name}}</span></h3>
+								<ul>
+									<li><i class="fas fa-graduation-cap"></i><p>{{user.college_name}}</p></li>
+									<li><i class="fab fa-discord"></i><p>{{user.discord_id}}</p></li>
+									<li><i class="far fa-envelope"></i><p>{{user.email}}</p></li>
+									<li><i class="fas fa-level-up-alt"></i><p>level : {{user.current_level}}</p></li>
+									<li><i class="far fa-star"></i><p>score : {{user.score}}</p></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<script>
+					function menuToggle(){
+						const toggleMenu = document.querySelector('.menu');
+						toggleMenu.classList.toggle('active');
+					}
+				</script>
+				<div class="right-nav">
+					<div class="menuBtn">
+						<button class="menu" id="hamburgerMenu"
+							onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'));on(this)"
+							aria-label="Main Menu">
+							<svg width="100" height="100" viewBox="0 0 100 100">
+								<path class="line line1"
+									d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+								<path class="line line2" d="M 20,50 H 80" />
+								<path class="line line3"
+									d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+							</svg>
+						</button>
+					</div>
+					<li class="registerButn" style="list-style: none;"><a href="{% url 'logout' %}">Logout</a></li>
+				</div>
+
+				{% else %}
+				<li><a class="subbtn" href="{% url 'login' %}">Login</a></li>
+				</ul>
+				<div class="right-nav">
+					<div class="menuBtn">
+						<button class="menu" id="hamburgerMenu"
+							onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'));on(this)"
+							aria-label="Main Menu">
+							<svg width="100" height="100" viewBox="0 0 100 100">
+								<path class="line line1"
+									d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+								<path class="line line2" d="M 20,50 H 80" />
+								<path class="line line3"
+									d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+							</svg>
+						</button>
+					</div>
+					<li class="registerButn" style="list-style: none;"><a href="{% url 'register' %}">Register</a></li>
+				</div>
+
+				{% endif %}
+			</div>
+		</header>
+		<div class="menuSection" id="menuSection">
+			<ul class="nav-list2" onclick="document.getElementById('hamburgerMenu').click()">
+				<li><a class="navbarlist" href="{% url 'home' %}" >Home</a></li>
+					<li><a class="navbarlist" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+					<li><a class="navbarlist" href="{% url 'rules' %}">Rules</a></li>
+					<li><a class="navbarlist" href="{% url 'questions' %}">Play</a></li>
+					{% if user.is_authenticated %}
+					<li>
+						<div class="action">
+							<div class="profile" onclick="menuToggle();">
+								<p class="subbtn">Hello {{user.first_name}} </p>
+							</div>
+							<div class="menu">
+								<h3>{{user.first_name}} {{user.last_name}}<br> <span>{{user.user_name}}</span></h3>
+								<ul>
+									<li><i class="fas fa-graduation-cap"></i><p>{{user.college_name}}</p></li>
+									<li><i class="fab fa-discord"></i><p>{{user.discord_id}}</p></li>
+									<li><i class="far fa-envelope"></i><p>{{user.email}}</p></li>
+									<li><i class="fas fa-level-up-alt"></i><p>level : {{user.current_level}}</p></li>
+									<li><i class="far fa-star"></i><p>score : {{user.score}}</p></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<div class="right-nav" >
+						<li class="registerBtn"><a  style="list-style: none;" href="{% url 'logout' %}" >Logout</a></li>
+					</div>
+				</ul>
+					{% else %}
+					<li><a href="{% url 'login' %}" class="subbtn" >Login</a></li>
+					<div class="right-nav" >
+						<li class="registerBtn"><a  style="list-style: none;" href="{% url 'register' %}" >Register</a></li>
+					</div>
+				</ul>
+					{% endif %}
+		</div>
+		<script>
+			function on(a){
+				if(a.classList.contains('opened')){
+					menuSection.classList.add("menuSectionOpen");
+					document.getElementsByTagName('body')[0].style.overflow= "hidden";
+				}else{
+					menuSection.classList.remove("menuSectionOpen");
+					document.getElementsByTagName('body')[0].style.overflow= "";
+				}
+			}
+			
+		</script>
+		<!-- <div> -->
+			{% block content %}
+			
+			<script>
+				var countDownDate = new Date("April 15, 2024 09:00:00").getTime();
+			
+				var x = setInterval(function () {
+					var now = new Date().getTime();
+					var distance = countDownDate - now;
+					console.log(distance);
+					var days = Math.abs(Math.floor(distance / (1000 * 60 * 60 * 24)));
+					var hours = Math.abs(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+					var minutes = Math.abs(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+					var seconds = Math.abs(Math.floor((distance % (1000 * 60)) / 1000));
+					if (distance < 0) {
+						document.getElementById('direction').innerText = '+'
+						var days = Math.abs(Math.ceil(distance / (1000 * 60 * 60 * 24)));
+						var hours = Math.abs(Math.ceil((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+						var minutes = Math.abs(Math.ceil((distance % (1000 * 60 * 60)) / (1000 * 60)));
+						var seconds = Math.abs(Math.ceil((distance % (1000 * 60)) / 1000));
+						if(distance > -345600000){
+							document.getElementById("playButton").innerHTML = '<a class="subbtn playbtn" href="{% url 'questions' %}">Play</a>'
+						}
+						else{
+							document.getElementById("playButton").innerHTML = '<a style="display: none;" class="subbtn playbtn" href="{% url 'questions' %}">Play</a>'
+						}
+					}
+					if(document.getElementById('direction').innerText == '+' && Math.abs(distance) >= '345600000'){
+						document.getElementsByClassName('timerContainer')[0].innerHTML = '<span>GAME OVER!!</span>'
+					}
+					//if(document.getElementById('direction').innerText == '+' && Math.abs(distance) < '345600000'){
+					//	document.getElementById("playButton").innerHTML = '<a class="subbtn playbtn" href="{% url 'questions' %}">Play</a>'
+					//}
+					else{
+				   
+					if (seconds.toString().length == 1) {
+						seconds = '0' + seconds.toString()
+					}
+					if (hours.toString().length == 1) {
+						hours = '0' + hours.toString()
+					}
+					if (days.toString().length == 1) {
+						days = '0' + days.toString()
+					}
+					if (minutes.toString().length == 1) {
+						minutes = '0' + minutes.toString()
+					}
+					if (days == '00'){
+						document.getElementById('daysCont').style.display = 'none';
+						document.getElementById('daysCont').nextElementSibling.style.display = 'none';
+						if (hours == '00'){
+							document.getElementById('hoursCont').style.display = 'none';
+						document.getElementById('hoursCont').nextElementSibling.style.display = 'none';
+
+							if(minutes == '00'){
+								document.getElementById('minutesCont').style.display = 'none';
+						document.getElementById('minutesCont').nextElementSibling.style.display = 'none';
+
+							}else{
+								document.getElementById('minutesCont').style.display = 'flex';
+						document.getElementById('minutesCont').nextElementSibling.style.display = 'flex';
+
+		
+							};
+						}else{
+						document.getElementById('hoursCont').style.display = 'flex';
+						document.getElementById('hoursCont').nextElementSibling.style.display = 'flex';
+
+						};
+					}else{
+						document.getElementById('daysCont').style.display = 'flex';
+						document.getElementById('daysCont').nextElementSibling.style.display = 'flex';
+					};
+					document.getElementById('days').innerText = days;
+					document.getElementById('hours').innerText = hours;
+					document.getElementById('minutes').innerText = minutes;
+					document.getElementById('seconds').innerText = seconds;
+				}
+				}, 1000);
+			</script>
+			<script defer>
+				document.getElementById('particles-js').style.display = 'none';
+			</script>
+			<link rel="stylesheet" href="{% static 'css/cryptlogo.css' %}">
+			<div class="cont" >
+			<div id="ui">
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				<div class="text">Cryptic;Hunt</div>
+				
+			</div>
+			<div class="timerContainer">
+				<ul class="timer">
+					<li><span >T</span></li>
+					<li><span ></span> </li>
+					<li><span id="direction" >-</span></li>
+					<li><span ></span> </li>
+					<li id="daysCont" style="display: flex;"><span id="days" style="margin-right: 7px;" ></span><span> d</span></li>
+					<li id="daysCont" ><span style="position: absolute; margin-top: -12px; font-size: 3em;">:</span></li>
+					<li id="hoursCont" style="display: flex;"><span id="hours" style="margin-right: 7px;" ></span><span> h</span></li>
+					<li id="hoursCont" ><span style="position: absolute; margin-top: -12px; font-size: 3em;" >:</span></li>
+					<li id="minutesCont" style="display: flex;"><span id="minutes" style="margin-right: 7px;" ></span><span> m</span></li>
+					<li id="minutesCont" ><span style="position: absolute; margin-top: -12px; font-size: 3em;" >:</span></li>
+					<li id="secondsCont" style="display: flex;"><span id="seconds" style="margin-right: 7px;" ></span><span> s</span></li>
+				</ul>
+            </div>
+			<div id="playButton">
+				{% comment %} <span>Event not started yet...</span>
+				<span>Register Now</span> {% endcomment %}
+			</div>
+		</div>
+			<script >
+				var text = document.getElementsByClassName('text')
+				for(var i = 0; i<text.length; i++){
+					text[i].style.opacity = '0';
+				}
+				setTimeout(()=>{
+					for(var i = 0; i<text.length; i++){
+						text[i].style.opacity = '1';
+					}
+				},5000)
+			</script>
+			{% endblock content %}
+	</section>
+</body>
+
+</html>

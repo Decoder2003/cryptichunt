@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "aws_region": "us-east-1",
+        "django_settings": "cryptpy.settings",
+        "profile_name": "default",
+        "project_name": "cryptpy",
+        "runtime": "python3.9",
+        "s3_bucket": "cryptbucket",
+        "environment_variables": {
+            "DJANGO_SETTINGS_MODULE": "cryptpy.settings",
+            "AWS_ACCESS_KEY_ID": "AKIA3FLDZRGJLEPN74GO",
+            "AWS_SECRET_ACCESS_KEY": "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",
+            "AWS_STORAGE_BUCKET_NAME": "cryptbucket",
+            "SECRET_KEY": "b#s*_o(3t3ai_k(c5po@h7a=nj5#vjkd3u7ckhnx@)mi=8fn67"
+        }
+    }
+}

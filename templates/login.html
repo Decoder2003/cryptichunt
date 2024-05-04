@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<div class="wrapper">
+	<div class="title">
+		Login Form
+	</div>
+	<form action="{% url 'login' %}" method="POST">
+		{% csrf_token %}
+		<div class="form">
+			<div class="inputfield">
+				<label>User Name</label>
+				<input name="username" type="text" class="input" placeholder="eg. jeffbezos69" required>
+			</div>
+			<div class="inputfield">
+				<label>Password</label>
+				<input type="password" name="password" class="input" placeholder="At least 8 characters" required>
+			</div>
+			<div class="inputfield">
+				<input type="submit" value="Login" class="btn">
+			</div>
+		</div>
+		<p><span class="how">don't have an account? <a href="{% url 'register' %}">Register</a></span></p>
+	</form>
+</div>
+<div id="notification-area"> </div>
+
+<!-- notification -->
+<script>
+	function notify(type, message) {
+		(() => {
+			let n = document.createElement("div");
+			let id = Math.random().toString(36).substr(2, 10);
+			n.setAttribute("id", id);
+			n.classList.add("notification", type);
+			n.innerText = message;
+			document.getElementById("notification-area").appendChild(n);
+			setTimeout(() => {
+				var notifications = document
+					.getElementById("notification-area")
+					.getElementsByClassName("notification");
+				for (let i = 0; i < notifications.length; i++) {
+					if (notifications[i].getAttribute("id") == id) {
+						notifications[i].remove();
+						break;
+					}
+				}
+			}, 6000);
+		})();
+	}
+</script>
+
+{% for message in messages %}
+<script>
+	function notifymsg() {
+		notify("{{message.tags}}", "{{message}}");
+	}
+	notifymsg();
+</script>
+{% endfor %}
+{% endblock content %}

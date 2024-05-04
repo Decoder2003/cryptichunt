@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<style>
+    .RCont h1{
+        font-size: 2em;
+        font-family: "Convergence", sans-serif;
+        background: -webkit-linear-gradient(45deg,#0084f6, #d801b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        /*text-align: center;*/
+      }
+      .GR{
+        display: block;
+    overflow-y: scroll!important;
+    position: relative;
+    margin: 100px 25px 0px 25px;
+    width: 100%;
+      }
+      .GR p{
+          text-align: center;
+          margin-top: 50px;
+          margin-bottom: 20px;
+          font-size: 25px;
+      }
+      .RCont{
+        display: block;
+      }
+      .RCont:nth-of-type(2){
+        margin-top: 30px;
+      }
+      .RCont ol{
+        padding: 0 4rem;
+        margin-top: 15px;
+        font-family: "Convergence", sans-serif;
+        font-size: 20px;
+        list-style: lower-greek;
+      }
+      .RCont li{
+          margin-bottom: 5px;
+      }
+      @media screen and (max-width: 750px){
+          .RCont h1{
+              text-align: center;
+          }
+          .GR{
+            margin: 100px 0px 0px 0px;
+          }
+          .GR p{
+            margin-bottom: 50px;
+        }
+      }
+      
+</style>
+<div class="GR">
+    <div class="RCont" >
+        <h1> Guidelines: </h1>
+        <ol>
+            <li>All the hints and announcements will be posted on the discord server
+            </li>
+            <li>Registration will be done only through the website</li>
+            <li>Make sure to join the discord server.
+            </li>
+            <li>Discord link - <a style="text-decoration: none;"
+                href="https://discord.com/invite/9ysNXaudhv"
+                target="_blank"> https://discord.com/invite/9ysNXaudhv </a> </li>
+        </ol>
+        
+    </div>
+    <div class="RCont" >
+        <h1>Rules:</h1>
+        <ol>
+            <li>This is an online scavenger hunt where you may have to scan the entire internet to find the right answer!</li>
+            <li>Everything you see on the screen can be the answer or a part of it.</li>
+            <li>The answer entered should be without spaces and in lowercase letters only.
+            </li>
+            <li>The numbers entered should be in words, ex: 1992 would be submitted as “onenineninetwo”.
+            </li>
+            <li>To register for the event, go to the login page and sign up!
+            </li>
+            <li>Stay tuned on the discord server for hints and more information about the event.
+            </li>
+        </ol>
+        <p>Happy Hunting!</p>
+    </div>
+</div>
+{% endblock content %}

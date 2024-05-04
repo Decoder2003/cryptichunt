@@ -1,0 +1,28 @@
+body{
+	background: black;
+}
+
+.login{
+	background-color: #000040; 
+	width: 70vw;
+	height: 60vh;
+	position: absolute;
+	left:50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	display: grid;
+	place-content: center;
+}
+.login h1{
+	text-align: center;
+	color: white;
+}
+.login input{
+	width: 15vw;
+	height: 5vh;
+}
+.login button{
+	width: 10vw;
+	height: 5vh;
+	margin: auto;
+}

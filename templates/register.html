@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cryptic Hunt : INNOVATE'24</title>
+	<link rel="icon" href="{% static 'images/icon.png' %}">
+	<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+	<script src="{% static 'js/amazing.js' %}" defer></script>
+	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
+	<script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+</head>
+
+<body>
+	<section id="home">
+
+		<!-- particles.js container -->
+		<div id="particles-js"></div>
+		<script src="{% static 'js/app.js' %}"></script>
+		<script src="{% static 'js/particles.js' %}"></script>
+
+		<div class="imgback"></div>
+		<header>
+			<div class="nav-bar">
+				<a href="../"><img src="{% static 'images/logo.png' %}" class="imagineLogo" alt="ImAgine.py"
+						style="width:300px; position:absolute; top: 20px; left: 0;margin-left: 30px;"></a>
+				<ul class="nav-list">
+					<li><a class="navbarlist" href="{% url 'home' %}">Home</a></li>
+					<li><a class="navbarlist" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+					<li><a class="navbarlist" href="#">Play</a></li>
+					<li><a class="subbtn" href="{% url 'login' %}">Login</a></li>
+				</ul>
+				<div class="right-nav">
+					<div class="menuBtn">
+						<button class="menu" id="hamburgerMenu"
+							onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'));on(this)"
+							aria-label="Main Menu">
+							<svg width="100" height="100" viewBox="0 0 100 100">
+								<path class="line line1"
+									d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+								<path class="line line2" d="M 20,50 H 80" />
+								<path class="line line3"
+									d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+							</svg>
+						</button>
+					</div>
+					<li class="registerButn" style="list-style: none;"><a href="{% url 'register' %}">Register</a></li>
+				</div>
+			</div>
+		</header>
+		<div class="menuSection" id="menuSection">
+			<ul class="nav-list2" onclick="document.getElementById('hamburgerMenu').click()">
+				<li><a class="navbarlist" href="{% url 'home' %}" >Home</a></li>
+					<li><a class="navbarlist" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+					<li><a class="navbarlist" href="{% url 'rules' %}">Rules</a></li>
+					{% comment %} <li><a class="navbarlist" href="{% url 'questions' %}">Play</a></li> {% endcomment %}
+					{% if user.is_authenticated %}
+					<li>
+						<div class="action">
+							<div class="profile" onclick="menuToggle();">
+								<p class="subbtn">Hello {{user.first_name}} </p>
+							</div>
+							<div class="menu">
+								<h3>{{user.first_name}} {{user.last_name}}<br> <span>{{user.user_name}}</span></h3>
+								<ul>
+									<li><i class="fas fa-graduation-cap"></i><p>{{user.college_name}}</p></li>
+									<li><i class="fab fa-discord"></i><p>{{user.discord_id}}</p></li>
+									<li><i class="far fa-envelope"></i><p>{{user.email}}</p></li>
+									<li><i class="fas fa-level-up-alt"></i><p>level : {{user.current_level}}</p></li>
+									<li><i class="far fa-star"></i><p>score : {{user.score}}</p></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<div class="right-nav" >
+						<li class="registerBtn"><a  style="list-style: none;" href="{% url 'logout' %}" >Logout</a></li>
+					</div>
+				</ul>
+					{% else %}
+					<li><a href="{% url 'login' %}" class="subbtn" >Login</a></li>
+					<div class="right-nav" >
+						<li class="registerBtn"><a  style="list-style: none;" href="{% url 'register' %}" >Register</a></li>
+					</div>
+				</ul>
+					{% endif %}
+		</div>
+		<script>
+			function on(a){
+				if(a.classList.contains('opened')){
+					menuSection.classList.add("menuSectionOpen");
+					document.getElementsByTagName('body')[0].style.overflow= "hidden";
+				}else{
+					menuSection.classList.remove("menuSectionOpen");
+					document.getElementsByTagName('body')[0].style.overflow= "";
+				}
+			}
+			
+		</script>
+
+		<div class="wrapper">
+			<div class="title">
+				Registration Form
+			</div>
+			<!-- {% for message in messages %}
+			<p style="color: red;">{{message}}</p>
+			{% endfor %} -->
+			<form action="{% url 'register' %}" method="POST">
+				{% csrf_token %}
+				<div class="form">
+					<div class="inputfield">
+						<label>First Name</label>
+						<input name="first_name" type="text" class="input" placeholder="eg. Jeff" required>
+					</div>
+					<div class="inputfield">
+						<label>Last Name</label>
+						<input name="last_name" type="text" class="input" placeholder="eg. Bezos" required>
+					</div>
+					<div class="inputfield">
+						<label>User Name</label>
+						<input name="user_name" type="text" class="input" placeholder="eg. jeffWho" required>
+					</div>
+					<div class="inputfield">
+						<label>College Name</label>
+						<input name="college_name" type="text" class="input" placeholder="eg. Jeff Global College"
+							required>
+					</div>
+					<div class="inputfield">
+						<label>College Roll Number</label>
+						<input name="college_roll_number" type="text" class="input" placeholder="eg. RA21113030194"
+							required>
+					</div>
+					<div class="inputfield">
+						<label>Discord ID</label>
+						<input name="discord_id" type="text" class="input" placeholder="eg. jeffbezos#1234" required>
+					</div>
+					<div class="inputfield">
+						<label>Email Address</label>
+						<input name="email" type="email" class="input" placeholder="eg. jeffbezos@richestman.com"
+							required>
+					</div>
+					<div class="inputfield">
+						<label>Password</label>
+						<input type="password" name="password" class="input" placeholder="At least 8 characters"
+							required>
+					</div>
+					<div class="inputfield">
+						<label>Confirm Password</label>
+						<input type="password" name="password2" class="input" placeholder="At least 8 characters"
+							required>
+					</div>
+					<!-- <div class="inputfield">
+					<label>Gender</label>
+					<div class="custom_select">
+						<select>
+							<option value="">Select</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+					</div>
+				</div> -->
+
+					<!-- <div class="inputfield">
+					<label>Phone Number</label>
+					<input type="text" class="input">
+				</div> -->
+					<!-- <div class="inputfield">
+					<label>Address</label>
+					<textarea class="textarea"></textarea>
+				</div> -->
+					<!-- <div class="inputfield">
+					<label>Postal Code</label>
+					<input type="text" class="input">
+				</div> -->
+					<div class="inputfield terms" style="justify-content: center;">
+						<label class="check">
+							<input type="checkbox" required>
+							<span class="checkmark"></span>
+						</label>
+						<a style="text-decoration: none;"
+							href="https://drive.google.com/file/d/16ARgP9owAp-zY2km9qy6c28SqRpBZ_C-/view?usp=sharing"
+							target="_blank">Agreed to rules and regulations</a>
+					</div>
+					<div class="inputfield">
+						<input type="submit" value="Register" class="btn">
+					</div>
+				</div>
+			</form>
+			<p><span class="how">already have an account? <a href="{% url 'login' %}">Login</a></span></p>
+		</div>
+		<div id="notification-area"></div>
+	</section>
+
+	<!-- <script src="http://threejs.org/examples/js/libs/stats.min.js"></script> -->
+	<script>
+		$('#password1, #password2').on('keyup', function () {
+			if ($('#password1').val() == $('#password2').val()) {
+				$('#password2').css('border-color', 'green');
+			} else
+				$('#password2').css('border-color', 'red');
+		});
+	</script>
+
+
+	<!-- notification -->
+	<script>
+		function notify(type, message) {
+			(() => {
+				let n = document.createElement("div");
+				let id = Math.random().toString(36).substr(2, 10);
+				n.setAttribute("id", id);
+				n.classList.add("notification", type);
+				n.innerText = message;
+				document.getElementById("notification-area").appendChild(n);
+				setTimeout(() => {
+					var notifications = document
+						.getElementById("notification-area")
+						.getElementsByClassName("notification");
+					for (let i = 0; i < notifications.length; i++) {
+						if (notifications[i].getAttribute("id") == id) {
+							notifications[i].remove();
+							break;
+						}
+					}
+				}, 5000);
+			})();
+		}
+	</script>
+
+	{% for message in messages %}
+	<script>
+		function notifymsg() {
+			notify("{{message.tags}}", "{{message}}");
+		}
+		notifymsg();
+	</script>
+	{% endfor %}
+	<!-- scripts -->
+	<!-- <script src="../particles.js"></script>
+	<script src="js/app.js"></script> -->
+
+	<!-- particles-scripts -->
+
+	<!-- 
+	<script>
+		var count_particles, stats, update;
+		stats = new Stats;
+		stats.setMode(0);
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.left = '0px';
+		stats.domElement.style.top = '0px';
+		document.body.appendChild(stats.domElement);
+		count_particles = document.querySelector('.js-count-particles');
+		update = function() {
+		  stats.begin();
+		  stats.end();
+		  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+			count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+		  }
+		  requestAnimationFrame(update);
+		};
+		requestAnimationFrame(update);
+	</script> -->
+
+
+</body>
+
+</html>
