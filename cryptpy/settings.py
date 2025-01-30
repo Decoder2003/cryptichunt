@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b#s*_o(3t3ai_k(c5po@h7a=nj5#vjkd3u7ckhnx@)mi=8fn67'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -112,8 +112,8 @@ DATABASES = {
         'ENGINE' : 'django.db.backends.mysql',
         'NAME':'db',
         'USER':'root',
-        'PASSWORD':'lfwlJqFRZgHullDnEp9C',
-        'HOST':'database.c9u8wu2oaz1n.us-east-1.rds.amazonaws.com',
+        'PASSWORD':'',
+        'HOST':'',
         'PORT':'3306'
     }
 }
@@ -193,12 +193,12 @@ def verified_callback(user):
 # ----- AWS config ------
 
 AWS_REGION = "us-east-1"
-AWS_ACCESS_KEY_ID = "AKIA3FLDZRGJLEPN74GO"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
 
 # ----- Email Verification -----
 EMAIL_VERIFIED_CALLBACK = verified_callback
-EMAIL_FROM_ADDRESS = 'noreply@aliasaddress.com'
+EMAIL_FROM_ADDRESS = ''
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
@@ -210,8 +210,8 @@ EMAIL_PAGE_DOMAIN = 'https://cryptichunt-srmncr.co.in/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'innovate2024@srmup.in'
-EMAIL_HOST_PASSWORD = "kmnpxukvjyobkxpl"
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ""
 # print(os.environ['password_key'])
 EMAIL_USE_TLS = True
 
@@ -222,14 +222,14 @@ AWS_S3_BUCKET_NAME = "cryptbucket"
 # AWS_S3_MAX_AGE_SECONDS_CACHED_STATIC = 60 * 60 * 24 * 365
 AWS_S3_BUCKET_NAME_STATIC = "cryptbucket"
 AWS_S3_BUCKET_AUTH = False
-AWS_S3_CUSTOM_DOMAIN = "https://d3ptzfk98jqft2.cloudfront.net"
+AWS_S3_CUSTOM_DOMAIN = ""
 AWS_S3_PUBLIC_URL = "%s/" % AWS_S3_CUSTOM_DOMAIN
-AWS_S3_CUSTOM_DOMAIN_STATIC = "https://d3ptzfk98jqft2.cloudfront.net"
+AWS_S3_CUSTOM_DOMAIN_STATIC = ""
 AWS_S3_PUBLIC_URL_STATIC = "%s/" % AWS_S3_CUSTOM_DOMAIN_STATIC
 STATIC_URL = "%s/" % AWS_S3_CUSTOM_DOMAIN
-STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+STATICFILES_STORAGE = ""
 AWS_S3_BUCKET_AUTH_STATIC = False
-DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage" #the media storage configurations
+DEFAULT_FILE_STORAGE = "" #the media storage configurations
 
 # AWS_DEFAULT_ACL = None
 
